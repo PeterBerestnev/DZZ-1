@@ -54,12 +54,21 @@
             groupBox5 = new GroupBox();
             label4 = new Label();
             label2 = new Label();
+            compresedGraphics = new PictureBox();
+            groupBox6 = new GroupBox();
+            groupBox7 = new GroupBox();
+            label7 = new Label();
+            numericUpDown1 = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)graphics).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)compresedGraphics).BeginInit();
+            groupBox6.SuspendLayout();
+            groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // graphics
@@ -323,11 +332,65 @@
             label2.TabIndex = 0;
             label2.Text = "x1";
             // 
+            // compresedGraphics
+            // 
+            compresedGraphics.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            compresedGraphics.BorderStyle = BorderStyle.Fixed3D;
+            compresedGraphics.Location = new Point(695, 253);
+            compresedGraphics.Name = "compresedGraphics";
+            compresedGraphics.Size = new Size(166, 320);
+            compresedGraphics.TabIndex = 8;
+            compresedGraphics.TabStop = false;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Controls.Add(groupBox7);
+            groupBox6.Location = new Point(534, 364);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(155, 209);
+            groupBox6.TabIndex = 9;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Обзорное изображение";
+            // 
+            // groupBox7
+            // 
+            groupBox7.Controls.Add(label7);
+            groupBox7.Controls.Add(numericUpDown1);
+            groupBox7.Location = new Point(12, 75);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(129, 55);
+            groupBox7.TabIndex = 1;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Прореживание";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(12, 24);
+            label7.Name = "label7";
+            label7.Size = new Size(29, 15);
+            label7.TabIndex = 1;
+            label7.Text = "m =";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(47, 22);
+            numericUpDown1.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(70, 23);
+            numericUpDown1.TabIndex = 0;
+            numericUpDown1.UpDownAlign = LeftRightAlignment.Left;
+            numericUpDown1.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(872, 607);
+            Controls.Add(groupBox6);
+            Controls.Add(compresedGraphics);
             Controls.Add(groupBox4);
             Controls.Add(listView1);
             Controls.Add(vScrollBar1);
@@ -347,6 +410,11 @@
             groupBox4.PerformLayout();
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)compresedGraphics).EndInit();
+            groupBox6.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
         }
 
@@ -378,5 +446,10 @@
         private Label label2;
         private CheckBox checkBox1;
         private CheckBox checkBox2;
+        private PictureBox compresedGraphics;
+        private GroupBox groupBox6;
+        private GroupBox groupBox7;
+        private Label label7;
+        private NumericUpDown numericUpDown1;
     }
 }

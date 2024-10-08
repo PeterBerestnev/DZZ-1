@@ -58,7 +58,7 @@ namespace ДЗЗ_1
                     }
 
                     resetParams();
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -80,6 +80,7 @@ namespace ДЗЗ_1
             zoomVarX = 0;
             checkBox1.Checked = false;
             drawImage(_fileData);
+            drawCompressedImage(_fileData);
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -182,6 +183,42 @@ namespace ДЗЗ_1
             }
         }
 
+        private void drawCompressedImage(byte[] image)
+        {
+            if (image != null)
+            {
+                int compressionFactor = (int)numericUpDown1.Value;
+                int newWidth = width / compressionFactor;
+                int newHeight = height / compressionFactor;
+
+                Bitmap compressedImage = new Bitmap(newWidth, newHeight);
+
+                for (int y = 0; y < newHeight; y++)
+                {
+                    for (int x = 0; x < newWidth; x++)
+                    {
+                        int nearestX = x * compressionFactor;
+                        int nearestY = y * compressionFactor;
+
+                        // Clamp nearestX and nearestY to the original image bounds
+                        nearestX = Math.Max(0, Math.Min(nearestX, width - 1));
+                        nearestY = Math.Max(0, Math.Min(nearestY, height - 1));
+
+                        int pixelOffset = 4 + (nearestY * width * 2) + (nearestX * 2);
+                        ushort pixelValue = BitConverter.ToUInt16(image, pixelOffset);
+
+                        int brightness = (pixelValue & 0x3FF);
+
+                        int scaledBrightness = (brightness >> shift) & 0xFF;
+
+                        Color pixelColor = Color.FromArgb(scaledBrightness, scaledBrightness, scaledBrightness);
+                        compressedImage.SetPixel(x, y, pixelColor);
+                    }
+                }
+                compresedGraphics.Image = compressedImage;
+            }
+        }
+
         private int NormalizeBrightness(int brightness)
         {
             return (int)((brightness - minBrightness) / (float)(maxBrightness - minBrightness) * 255);
@@ -252,6 +289,12 @@ namespace ДЗЗ_1
         private void checkBox2_CheckStateChanged(object sender, EventArgs e)
         {
             drawImage(_fileData);
+            drawCompressedImage(_fileData);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            drawCompressedImage(_fileData);
         }
     }
 }
