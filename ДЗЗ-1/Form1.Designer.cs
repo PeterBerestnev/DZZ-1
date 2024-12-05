@@ -32,6 +32,7 @@
             groupBox1 = new GroupBox();
             loadButton = new Button();
             label1 = new Label();
+            listView1 = new ListView();
             groupBox2 = new GroupBox();
             radioButton4 = new RadioButton();
             radioButton3 = new RadioButton();
@@ -46,29 +47,56 @@
             label3 = new Label();
             vScrollBar1 = new VScrollBar();
             openFileDialog1 = new OpenFileDialog();
-            listView1 = new ListView();
             button1 = new Button();
             groupBox4 = new GroupBox();
+            groupBox8 = new GroupBox();
+            trackBarLabel8 = new Label();
+            trackBarLabel17 = new Label();
+            trackBarLabel6 = new Label();
+            trackBarLabel5 = new Label();
+            trackBarLabel4 = new Label();
+            trackBarLabel3 = new Label();
+            trackBarLabel2 = new Label();
+            trackBarLabel1 = new Label();
+            trackBar5 = new TrackBar();
+            trackBar6 = new TrackBar();
+            trackBar7 = new TrackBar();
+            trackBar8 = new TrackBar();
+            trackBar3 = new TrackBar();
+            trackBar4 = new TrackBar();
+            trackBar2 = new TrackBar();
+            trackBar1 = new TrackBar();
+            pictureBox1 = new PictureBox();
+            groupBox6 = new GroupBox();
+            groupBox7 = new GroupBox();
+            label7 = new Label();
+            numericUpDown1 = new NumericUpDown();
+            compresedGraphics = new PictureBox();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
             groupBox5 = new GroupBox();
             label4 = new Label();
             label2 = new Label();
-            compresedGraphics = new PictureBox();
-            groupBox6 = new GroupBox();
-            groupBox7 = new GroupBox();
-            label7 = new Label();
-            numericUpDown1 = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)graphics).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
-            groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)compresedGraphics).BeginInit();
+            groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox6.SuspendLayout();
             groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)compresedGraphics).BeginInit();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // graphics
@@ -86,9 +114,10 @@
             // 
             groupBox1.Controls.Add(loadButton);
             groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(listView1);
             groupBox1.Location = new Point(533, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(331, 70);
+            groupBox1.Size = new Size(517, 70);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Файл";
@@ -111,6 +140,17 @@
             label1.Size = new Size(74, 15);
             label1.TabIndex = 0;
             label1.Text = "Имя файла:";
+            // 
+            // listView1
+            // 
+            listView1.Anchor = AnchorStyles.None;
+            listView1.BackColor = SystemColors.Menu;
+            listView1.LabelWrap = false;
+            listView1.Location = new Point(90, 19);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(421, 41);
+            listView1.TabIndex = 5;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // groupBox2
             // 
@@ -180,7 +220,7 @@
             groupBox3.Controls.Add(label6);
             groupBox3.Controls.Add(label5);
             groupBox3.Controls.Add(label3);
-            groupBox3.Location = new Point(533, 253);
+            groupBox3.Location = new Point(355, 22);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(156, 106);
             groupBox3.TabIndex = 3;
@@ -247,20 +287,9 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // listView1
-            // 
-            listView1.Anchor = AnchorStyles.None;
-            listView1.BackColor = SystemColors.Menu;
-            listView1.LabelWrap = false;
-            listView1.Location = new Point(619, 31);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(239, 41);
-            listView1.TabIndex = 5;
-            listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // button1
             // 
-            button1.Location = new Point(12, 125);
+            button1.Location = new Point(12, 82);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 6;
@@ -270,84 +299,215 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(groupBox8);
+            groupBox4.Controls.Add(groupBox6);
             groupBox4.Controls.Add(checkBox2);
             groupBox4.Controls.Add(checkBox1);
             groupBox4.Controls.Add(groupBox5);
             groupBox4.Controls.Add(button1);
+            groupBox4.Controls.Add(groupBox3);
             groupBox4.Controls.Add(groupBox2);
             groupBox4.Location = new Point(533, 88);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(331, 159);
+            groupBox4.Size = new Size(517, 507);
             groupBox4.TabIndex = 7;
             groupBox4.TabStop = false;
             groupBox4.Text = "Модификации";
             // 
-            // checkBox2
+            // groupBox8
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(13, 101);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(105, 19);
-            checkBox2.TabIndex = 9;
-            checkBox2.Text = "Нормировать";
-            checkBox2.UseVisualStyleBackColor = true;
-            checkBox2.CheckStateChanged += checkBox2_CheckStateChanged;
+            groupBox8.Controls.Add(trackBarLabel8);
+            groupBox8.Controls.Add(trackBarLabel17);
+            groupBox8.Controls.Add(trackBarLabel6);
+            groupBox8.Controls.Add(trackBarLabel5);
+            groupBox8.Controls.Add(trackBarLabel4);
+            groupBox8.Controls.Add(trackBarLabel3);
+            groupBox8.Controls.Add(trackBarLabel2);
+            groupBox8.Controls.Add(trackBarLabel1);
+            groupBox8.Controls.Add(trackBar5);
+            groupBox8.Controls.Add(trackBar6);
+            groupBox8.Controls.Add(trackBar7);
+            groupBox8.Controls.Add(trackBar8);
+            groupBox8.Controls.Add(trackBar3);
+            groupBox8.Controls.Add(trackBar4);
+            groupBox8.Controls.Add(trackBar2);
+            groupBox8.Controls.Add(trackBar1);
+            groupBox8.Controls.Add(pictureBox1);
+            groupBox8.Location = new Point(12, 118);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Size = new Size(314, 378);
+            groupBox8.TabIndex = 10;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "Преобразование яркостей";
             // 
-            // checkBox1
+            // trackBarLabel8
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(13, 82);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(129, 19);
-            checkBox1.TabIndex = 8;
-            checkBox1.Text = "Интерполировать";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckStateChanged += checkBox1_CheckStateChanged;
+            trackBarLabel8.AutoSize = true;
+            trackBarLabel8.Location = new Point(276, 323);
+            trackBarLabel8.Name = "trackBarLabel8";
+            trackBarLabel8.Size = new Size(14, 15);
+            trackBarLabel8.TabIndex = 16;
+            trackBarLabel8.Text = "0";
             // 
-            // groupBox5
+            // trackBarLabel17
             // 
-            groupBox5.Controls.Add(label4);
-            groupBox5.Controls.Add(label2);
-            groupBox5.Location = new Point(200, 31);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(125, 45);
-            groupBox5.TabIndex = 7;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Приближение";
+            trackBarLabel17.AutoSize = true;
+            trackBarLabel17.Location = new Point(238, 323);
+            trackBarLabel17.Name = "trackBarLabel17";
+            trackBarLabel17.Size = new Size(14, 15);
+            trackBarLabel17.TabIndex = 15;
+            trackBarLabel17.Text = "0";
             // 
-            // label4
+            // trackBarLabel6
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(18, 18);
-            label4.Name = "label4";
-            label4.Size = new Size(0, 15);
-            label4.TabIndex = 1;
+            trackBarLabel6.AutoSize = true;
+            trackBarLabel6.Location = new Point(200, 323);
+            trackBarLabel6.Name = "trackBarLabel6";
+            trackBarLabel6.Size = new Size(14, 15);
+            trackBarLabel6.TabIndex = 14;
+            trackBarLabel6.Text = "0";
             // 
-            // label2
+            // trackBarLabel5
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(5, 18);
-            label2.Name = "label2";
-            label2.Size = new Size(21, 15);
-            label2.TabIndex = 0;
-            label2.Text = "x1";
+            trackBarLabel5.AutoSize = true;
+            trackBarLabel5.Location = new Point(166, 323);
+            trackBarLabel5.Name = "trackBarLabel5";
+            trackBarLabel5.Size = new Size(14, 15);
+            trackBarLabel5.TabIndex = 13;
+            trackBarLabel5.Text = "0";
             // 
-            // compresedGraphics
+            // trackBarLabel4
             // 
-            compresedGraphics.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            compresedGraphics.BorderStyle = BorderStyle.Fixed3D;
-            compresedGraphics.Location = new Point(695, 253);
-            compresedGraphics.Name = "compresedGraphics";
-            compresedGraphics.Size = new Size(166, 320);
-            compresedGraphics.TabIndex = 8;
-            compresedGraphics.TabStop = false;
+            trackBarLabel4.AutoSize = true;
+            trackBarLabel4.Location = new Point(124, 323);
+            trackBarLabel4.Name = "trackBarLabel4";
+            trackBarLabel4.Size = new Size(14, 15);
+            trackBarLabel4.TabIndex = 12;
+            trackBarLabel4.Text = "0";
+            // 
+            // trackBarLabel3
+            // 
+            trackBarLabel3.AutoSize = true;
+            trackBarLabel3.Location = new Point(86, 323);
+            trackBarLabel3.Name = "trackBarLabel3";
+            trackBarLabel3.Size = new Size(14, 15);
+            trackBarLabel3.TabIndex = 11;
+            trackBarLabel3.Text = "0";
+            // 
+            // trackBarLabel2
+            // 
+            trackBarLabel2.AutoSize = true;
+            trackBarLabel2.Location = new Point(48, 323);
+            trackBarLabel2.Name = "trackBarLabel2";
+            trackBarLabel2.Size = new Size(14, 15);
+            trackBarLabel2.TabIndex = 10;
+            trackBarLabel2.Text = "0";
+            // 
+            // trackBarLabel1
+            // 
+            trackBarLabel1.AutoSize = true;
+            trackBarLabel1.Location = new Point(10, 323);
+            trackBarLabel1.Name = "trackBarLabel1";
+            trackBarLabel1.Size = new Size(14, 15);
+            trackBarLabel1.TabIndex = 9;
+            trackBarLabel1.Text = "0";
+            // 
+            // trackBar5
+            // 
+            trackBar5.Location = new Point(276, 213);
+            trackBar5.Maximum = 255;
+            trackBar5.Name = "trackBar5";
+            trackBar5.Orientation = Orientation.Vertical;
+            trackBar5.Size = new Size(45, 104);
+            trackBar5.TabIndex = 8;
+            trackBar5.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar6
+            // 
+            trackBar6.Location = new Point(238, 213);
+            trackBar6.Maximum = 255;
+            trackBar6.Name = "trackBar6";
+            trackBar6.Orientation = Orientation.Vertical;
+            trackBar6.Size = new Size(45, 104);
+            trackBar6.TabIndex = 7;
+            trackBar6.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar7
+            // 
+            trackBar7.Location = new Point(200, 213);
+            trackBar7.Maximum = 255;
+            trackBar7.Name = "trackBar7";
+            trackBar7.Orientation = Orientation.Vertical;
+            trackBar7.Size = new Size(45, 104);
+            trackBar7.TabIndex = 6;
+            trackBar7.Scroll += numericUpDown1_ValueChanged;
+            // 
+            // trackBar8
+            // 
+            trackBar8.Location = new Point(162, 213);
+            trackBar8.Maximum = 255;
+            trackBar8.Name = "trackBar8";
+            trackBar8.Orientation = Orientation.Vertical;
+            trackBar8.Size = new Size(45, 104);
+            trackBar8.TabIndex = 5;
+            trackBar8.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar3
+            // 
+            trackBar3.Location = new Point(124, 213);
+            trackBar3.Maximum = 255;
+            trackBar3.Name = "trackBar3";
+            trackBar3.Orientation = Orientation.Vertical;
+            trackBar3.Size = new Size(45, 104);
+            trackBar3.TabIndex = 4;
+            trackBar3.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar4
+            // 
+            trackBar4.Location = new Point(86, 213);
+            trackBar4.Maximum = 255;
+            trackBar4.Name = "trackBar4";
+            trackBar4.Orientation = Orientation.Vertical;
+            trackBar4.Size = new Size(45, 104);
+            trackBar4.TabIndex = 3;
+            trackBar4.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar2
+            // 
+            trackBar2.Location = new Point(48, 213);
+            trackBar2.Maximum = 255;
+            trackBar2.Name = "trackBar2";
+            trackBar2.Orientation = Orientation.Vertical;
+            trackBar2.Size = new Size(45, 104);
+            trackBar2.TabIndex = 2;
+            trackBar2.Scroll += TrackBar_Scroll;
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(10, 213);
+            trackBar1.Maximum = 255;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Orientation = Orientation.Vertical;
+            trackBar1.Size = new Size(45, 104);
+            trackBar1.TabIndex = 1;
+            trackBar1.Scroll += TrackBar_Scroll;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox1.Location = new Point(10, 22);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(298, 182);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // groupBox6
             // 
             groupBox6.Controls.Add(groupBox7);
-            groupBox6.Location = new Point(534, 364);
+            groupBox6.Controls.Add(compresedGraphics);
+            groupBox6.Location = new Point(332, 135);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(155, 209);
+            groupBox6.Size = new Size(179, 366);
             groupBox6.TabIndex = 9;
             groupBox6.TabStop = false;
             groupBox6.Text = "Обзорное изображение";
@@ -356,9 +516,9 @@
             // 
             groupBox7.Controls.Add(label7);
             groupBox7.Controls.Add(numericUpDown1);
-            groupBox7.Location = new Point(12, 75);
+            groupBox7.Location = new Point(4, 306);
             groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(129, 55);
+            groupBox7.Size = new Size(169, 55);
             groupBox7.TabIndex = 1;
             groupBox7.TabStop = false;
             groupBox7.Text = "Прореживание";
@@ -384,17 +544,73 @@
             numericUpDown1.Value = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
+            // compresedGraphics
+            // 
+            compresedGraphics.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            compresedGraphics.BorderStyle = BorderStyle.Fixed3D;
+            compresedGraphics.Location = new Point(4, 22);
+            compresedGraphics.Name = "compresedGraphics";
+            compresedGraphics.Size = new Size(169, 278);
+            compresedGraphics.TabIndex = 8;
+            compresedGraphics.TabStop = false;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(206, 93);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(105, 19);
+            checkBox2.TabIndex = 9;
+            checkBox2.Text = "Нормировать";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckStateChanged += checkBox2_CheckStateChanged;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(206, 73);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(129, 19);
+            checkBox1.TabIndex = 8;
+            checkBox1.Text = "Интерполировать";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckStateChanged += checkBox1_CheckStateChanged;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(label4);
+            groupBox5.Controls.Add(label2);
+            groupBox5.Location = new Point(206, 22);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(125, 45);
+            groupBox5.TabIndex = 7;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Приближение";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(18, 18);
+            label4.Name = "label4";
+            label4.Size = new Size(0, 15);
+            label4.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(5, 18);
+            label2.Name = "label2";
+            label2.Size = new Size(21, 15);
+            label2.TabIndex = 0;
+            label2.Text = "x1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(872, 607);
-            Controls.Add(groupBox6);
-            Controls.Add(compresedGraphics);
+            ClientSize = new Size(1062, 607);
             Controls.Add(groupBox4);
-            Controls.Add(listView1);
             Controls.Add(vScrollBar1);
-            Controls.Add(groupBox3);
             Controls.Add(groupBox1);
             Controls.Add(graphics);
             Name = "Form1";
@@ -408,13 +624,24 @@
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
-            groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)compresedGraphics).EndInit();
+            groupBox8.ResumeLayout(false);
+            groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox6.ResumeLayout(false);
             groupBox7.ResumeLayout(false);
             groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)compresedGraphics).EndInit();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -447,9 +674,27 @@
         private CheckBox checkBox1;
         private CheckBox checkBox2;
         private PictureBox compresedGraphics;
-        private GroupBox groupBox6;
         private GroupBox groupBox7;
         private Label label7;
         private NumericUpDown numericUpDown1;
+        private GroupBox groupBox8;
+        private GroupBox groupBox6;
+        private PictureBox pictureBox1;
+        private Label trackBarLabel1;
+        private TrackBar trackBar5;
+        private TrackBar trackBar6;
+        private TrackBar trackBar7;
+        private TrackBar trackBar8;
+        private TrackBar trackBar3;
+        private TrackBar trackBar4;
+        private TrackBar trackBar2;
+        private TrackBar trackBar1;
+        private Label trackBarLabel8;
+        private Label trackBarLabel17;
+        private Label trackBarLabel6;
+        private Label trackBarLabel5;
+        private Label trackBarLabel4;
+        private Label trackBarLabel3;
+        private Label trackBarLabel2;
     }
 }

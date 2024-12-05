@@ -15,6 +15,7 @@ namespace ДЗЗ_1
         private int zoomLevel = 1;
         private int minBrightness;
         private int maxBrightness;
+        private int[] trackBarValues = new int[8];
         private Bitmap originalImage;
         public Form1()
         {
@@ -172,7 +173,8 @@ namespace ДЗЗ_1
                             brightness = NormalizeBrightness(brightness);
                         }
 
-                        int scaledBrightness = (brightness >> shift) & 0xFF;
+                        //int scaledBrightness = (brightness >> shift) & 0xFF;
+                        int scaledBrightness = calculateBrightness(pixelValue);
 
                         Color pixelColor = Color.FromArgb(scaledBrightness, scaledBrightness, scaledBrightness);
                         zoomedImage.SetPixel(xZoom, yZoom, pixelColor);
@@ -296,5 +298,45 @@ namespace ДЗЗ_1
         {
             drawCompressedImage(_fileData);
         }
+
+        private void TrackBar_Scroll(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TrackBar trackBar = (System.Windows.Forms.TrackBar)sender;
+            int index = int.Parse(trackBar.Name.Replace("trackBar", "")) - 1; // Получаем индекс ползунка
+            trackBarValues[index] = trackBar.Value; // Сохраняем значение ползунка
+            drawImage(_fileData); // Перерисовываем изображение
+        }
+        private int calculateBrightness(int brightness)
+        {
+            // Убедитесь, что brightness находится в допустимом диапазоне
+            brightness = Math.Max(0, Math.Min(brightness, 1023));
+
+            // Найдем, в каком отрезке находится brightness
+            int segment = 0;
+            for (int i = 0; i < trackBarValues.Length - 1; i++)
+            {
+                if (brightness >= trackBarValues[i] && brightness <= trackBarValues[i + 1])
+                {
+                    segment = i;
+                    break;
+                }
+            }
+            // Получаем значения для интерполяции
+            int x0 = trackBarValues[segment];
+            int x1 = trackBarValues[segment + 1];
+            // Нормализуем значение y в диапазоне от 0 до 255
+            int y0 = (segment * 255) / (trackBarValues.Length - 1);
+            int y1 = ((segment + 1) * 255) / (trackBarValues.Length - 1);
+            // Проверка на случай, если x0 и x1 равны
+            if (x1 == x0)
+            {
+                return y0; // Если x0 и x1 равны, возвращаем y0
+            }
+            // Линейная интерполяция
+            int scaledBrightness = y0 + (y1 - y0) * (brightness - x0) / (x1 - x0);
+            return Math.Max(0, Math.Min(scaledBrightness, 255)); // Ограничиваем результат от 0 до 255
+        }
+
     }
+
 }
