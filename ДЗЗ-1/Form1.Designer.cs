@@ -117,9 +117,9 @@
             listView1.Anchor = AnchorStyles.None;
             listView1.BackColor = SystemColors.Menu;
             listView1.LabelWrap = false;
-            listView1.Location = new Point(40, 19);
+            listView1.Location = new Point(86, 19);
             listView1.Name = "listView1";
-            listView1.Size = new Size(334, 41);
+            listView1.Size = new Size(288, 41);
             listView1.TabIndex = 5;
             listView1.UseCompatibleStateImageBehavior = false;
             // 

@@ -163,10 +163,12 @@ namespace ДЗЗ_1
 
         private void DrawGrid(Graphics g, int width, int height)
         {
-            // Устанавливаем начальное и конечное значения
-            int minValue = 0;
-            int maxValue = 255;
-            int divisions = 9; // Количество делений (включая 0 и 255)
+            // Устанавливаем начальное и конечное значения для осей
+            int minYValue = 0;
+            int maxYValue = 255;  // Значения по оси Y от 0 до 255
+            int minXValue = 0;
+            int maxXValue = 1023; // Значения по оси X от 0 до 1023
+            int divisions = 9;   // Количество делений по оси Y
 
             // Устанавливаем отступы
             int padding = 60;
@@ -175,28 +177,29 @@ namespace ДЗЗ_1
             int availableWidth = width - 2 * padding;
             int availableHeight = height - 2 * padding;
 
-            // Рисуем горизонтальные линии и подписи
+            // Рисуем горизонтальные линии и подписи по оси Y
             for (int i = 0; i < divisions; i++)
             {
-                // Вычисляем текущее значение на основе индекса
-                int currentValue = minValue + (maxValue - minValue) * i / (divisions - 1);
+                // Вычисляем текущее значение по оси Y
+                int currentYValue = minYValue + (maxYValue - minYValue) * i / (divisions - 1);
                 int y = height - padding - (availableHeight * i) / (divisions - 1);
                 g.DrawLine(Pens.Green, padding, y, width - padding, y);
 
                 // Рисуем подпись слева
-                string label = currentValue.ToString();
+                string label = currentYValue.ToString();
                 g.DrawString(label, this.Font, Brushes.Black, new PointF(padding - 40, y - 10)); // Смещение для подписи
             }
 
-            // Рисуем вертикальные линии и подписи
+            // Рисуем вертикальные линии и подписи по оси X
             for (int i = 0; i < divisions; i++)
             {
+                // Вычисляем текущее значение по оси X
+                int currentXValue = minXValue + (maxXValue - minXValue) * i / (divisions - 1);
                 int x = padding + (availableWidth * i) / (divisions - 1);
                 g.DrawLine(Pens.Green, x, padding, x, height - padding);
 
                 // Рисуем подпись снизу
-                string label = (minValue + (maxValue - minValue) * i / (divisions - 1)).ToString();
-                g.DrawString(label, this.Font, Brushes.Black, new PointF(x - 10, height - padding + 5)); // Смещение для подписи
+                g.DrawString(currentXValue.ToString(), this.Font, Brushes.Black, new PointF(x - 10, height - padding + 5)); // Смещение для подписи
             }
 
             // Добавляем подписи к осям
@@ -212,6 +215,7 @@ namespace ДЗЗ_1
                 g.DrawString(yLabel[i].ToString(), this.Font, Brushes.Black, new PointF(yLabelX, yLabelStartY + i * this.Font.Height));
             }
         }
+
 
 
         private int calculateBrightness(int brightness)
@@ -232,9 +236,9 @@ namespace ДЗЗ_1
             // Получаем значения для интерполяции
             int x0 = trackBarValues[segment];
             int x1 = trackBarValues[segment + 1];
-            // Нормализуем значение y в диапазоне от 0 до 255
-            int y0 = (segment * 255) / (trackBarValues.Length - 1);
-            int y1 = ((segment + 1) * 255) / (trackBarValues.Length - 1);
+            
+            int y0 = (segment * 128) / (trackBarValues.Length - 1);
+            int y1 = ((segment + 1) * 128) / (trackBarValues.Length - 1);
             // Проверка на случай, если x0 и x1 равны
             if (x1 == x0)
             {
