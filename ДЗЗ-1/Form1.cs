@@ -24,7 +24,7 @@ namespace ДЗЗ_1
             InitializeComponent();
 
             rotationTimer = new System.Windows.Forms.Timer();
-            rotationTimer.Interval = 100; // Интервал в миллисекундах (0.1 секунды)
+            rotationTimer.Interval = 10; // Интервал в миллисекундах (0.1 секунды)
             rotationTimer.Tick += RotationTimer_Tick;
         }
 
@@ -59,44 +59,45 @@ namespace ДЗЗ_1
             }
         }
 
-        private Bitmap getImage(byte[] image, int observeScalar = 1)
+      private Bitmap getImage(byte[] image, int observeScalar = 1)
+{
+    if (image != null)
+    {
+        // Применяем текущий уровень увеличения
+        int newWidth = (int)(width / observeScalar);
+        int newHeight = (int)(height / observeScalar);
+
+        Bitmap newImage = new Bitmap(newWidth, newHeight);
+
+        for (int y = 0; y < newHeight; y++)
         {
-            if (image != null)
+            for (int x = 0; x < newWidth; x++)
             {
-                // Apply the current zoom level
-                int newWidth = (int)(width);
-                int newHeight = (int)(height);
+                // Вычисляем координаты пикселя в исходном изображении
+                int sourceX = x * observeScalar;
+                int sourceY = y * observeScalar;
 
-                Bitmap newImage = new Bitmap(newWidth, newHeight);
-
-                for (int y = 0; y < picture.Height; y++)
+                // Проверяем, что координаты находятся в пределах изображения
+                if (sourceX < width && sourceY < height)
                 {
-                    for (int x = 0; x < newWidth; x++)
-                    {
-                        // Вычисляем координаты пикселя в исходном изображении
-                        int sourceX = x * observeScalar;
-                        int sourceY = y * observeScalar; // Добавляем scrollPosition, если это необходимо
+                    int pixelOffset = 4 + (sourceY * width * 2) + (sourceX * 2);
+                    ushort pixelValue = BitConverter.ToUInt16(image, pixelOffset);
 
-                        // Проверяем, что координаты находятся в пределах изображения
-                        if (sourceX < width && sourceY < height)
-                        {
-                            int pixelOffset = 4 + (sourceY * width * 2) + (sourceX * 2);
-                            ushort pixelValue = BitConverter.ToUInt16(image, pixelOffset);
+                    int brightness = pixelValue & 0x3FF;
 
-                            int brightness = pixelValue & 0x3FF;
+                    // Преобразуем яркость в диапазон от 0 до 255
+                    int scaledBrightness = (brightness >> 0) & 0xFF;
 
-                            // Преобразуем яркость в диапазон от 0 до 255
-                            int scaledBrightness = (brightness >> 0) & 0xFF;
-
-                            Color pixelColor = Color.FromArgb(scaledBrightness, scaledBrightness, scaledBrightness);
-                            newImage.SetPixel(x, y, pixelColor);
-                        }
-                    }
+                    Color pixelColor = Color.FromArgb(scaledBrightness, scaledBrightness, scaledBrightness);
+                    newImage.SetPixel(x, y, pixelColor);
                 }
-                return newImage;
             }
-            return null;
         }
+        return newImage;
+    }
+    return null;
+}
+
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
@@ -115,22 +116,86 @@ namespace ДЗЗ_1
 
         private Bitmap RotateImage(Image img, float angle)
         {
-            // Создаем новый Bitmap для хранения повернутого изображения
-            Bitmap rotatedBmp = new Bitmap(img.Width, img.Height);
+            // Получаем новые размеры изображения
+            Size newSize = GetRotatedSize(angle, img.Size);
+            Bitmap rotatedBmp = new Bitmap(newSize.Width, newSize.Height);
 
-            using (Graphics g = Graphics.FromImage(rotatedBmp))
+            // Создаем матрицу вращения
+            Matrix rotationMatrix = new Matrix(-angle);
+
+            // Находим центр нового изображения
+            float centerX = pivotX; // Используем заданный центр вращения
+            float centerY = pivotY;
+
+            // Проходим по каждому пикселю нового изображения
+            for (int y = 0; y < rotatedBmp.Height; y++)
             {
-                // Устанавливаем точку вращения в заданные координаты
-                g.TranslateTransform(pivotX, pivotY);
-                g.RotateTransform(angle);
-                g.TranslateTransform(-pivotX, -pivotY);
+                for (int x = 0; x < rotatedBmp.Width; x++)
+                {
+                    // Вычисляем смещение относительно центра нового изображения
+                    float offsetX = x - centerX;
+                    float offsetY = y - centerY;
 
-                // Рисуем оригинальное изображение на новом Bitmap
-                g.DrawImage(img, new Point(0, 0));
+                    // Преобразуем координаты с использованием матрицы вращения
+                    Point transformedPoint = rotationMatrix.TransformPoint(new Point((int)offsetX, (int)offsetY));
+
+                    // Находим исходные координаты в оригинальном изображении
+                    float sourceX = transformedPoint.X + centerX;
+                    float sourceY = transformedPoint.Y + centerY;
+
+                    // Проверяем, находятся ли новые координаты в пределах оригинального изображения
+                    if (sourceX >= 0 && sourceX < img.Width && sourceY >= 0 && sourceY < img.Height)
+                    {
+                        // Получаем цвета для билинейной интерполяции
+                        Color color = BilinearInterpolation(img, sourceX, sourceY);
+                        rotatedBmp.SetPixel(x, y, color);
+                    }
+                }
             }
 
             return rotatedBmp;
         }
+
+
+        private Color BilinearInterpolation(Image img, float x, float y)
+        {
+            // Находим целые координаты и дробные части
+            int x1 = (int)Math.Floor(x);
+            int y1 = (int)Math.Floor(y);
+            int x2 = x1 + 1;
+            int y2 = y1 + 1;
+
+            // Получаем цвета пикселей
+            Color c1 = (x1 >= 0 && y1 >= 0 && x1 < img.Width && y1 < img.Height) ? ((Bitmap)img).GetPixel(x1, y1) : Color.Empty;
+            Color c2 = (x2 >= 0 && y1 >= 0 && x2 < img.Width && y1 < img.Height) ? ((Bitmap)img).GetPixel(x2, y1) : Color.Empty;
+            Color c3 = (x1 >= 0 && y2 >= 0 && x1 < img.Width && y2 < img.Height) ? ((Bitmap)img).GetPixel(x1, y2) : Color.Empty;
+            Color c4 = (x2 >= 0 && y2 >= 0 && x2 < img.Width && y2 < img.Height) ? ((Bitmap)img).GetPixel(x2, y2) : Color.Empty;
+
+            // Вычисляем дробные части
+            float dx = x - x1;
+            float dy = y - y1;
+
+            // Интерполяция по X
+            Color top = Interpolate(c1, c2, dx);
+            Color bottom = Interpolate(c3, c4, dx);
+
+            // Интерполяция по Y
+            return Interpolate(top, bottom, dy);
+        }
+
+        private Color Interpolate(Color c1, Color c2, float factor)
+        {
+            if (c1 == Color.Empty && c2 == Color.Empty)
+                return Color.Empty;
+
+            int r = (int)(c1.R * (1 - factor) + c2.R * factor);
+            int g = (int)(c1.G * (1 - factor) + c2.G * factor);
+            int b = (int)(c1.B * (1 - factor) + c2.B * factor);
+            return Color.FromArgb(r, g, b);
+        }
+
+
+
 
         private void observ_CheckedChanged(object sender, EventArgs e)
         {
@@ -194,43 +259,40 @@ namespace ДЗЗ_1
             }
             isRotating = !isRotating; // Переключаем состояние
         }
+
+        private Size GetRotatedSize(float angle, Size originalSize)
+        {
+            double radians = angle * Math.PI / 180;
+            double cos = Math.Abs(Math.Cos(radians));
+            double sin = Math.Abs(Math.Sin(radians));
+
+            int newWidth = (int)(originalSize.Width * cos + originalSize.Height * sin);
+            int newHeight = (int)(originalSize.Width * sin + originalSize.Height * cos);
+
+            return new Size(newWidth, newHeight);
+        }
+
     }
 
     public class Matrix
     {
-        private double[,] elements;
+        private readonly double cos;
+        private readonly double sin;
 
-        public Matrix(int rows, int cols)
+        public Matrix(double angle)
         {
-            elements = new double[rows, cols];
-        }
-
-        public double this[int row, int col]
-        {
-            get => elements[row, col];
-            set => elements[row, col] = value;
-        }
-
-        public static Matrix CreateRotationMatrix(double angle)
-        {
-            Matrix rotationMatrix = new Matrix(3, 3);
             double radians = angle * Math.PI / 180;
-
-            rotationMatrix[0, 0] = Math.Cos(radians);
-            rotationMatrix[0, 1] = -Math.Sin(radians);
-            rotationMatrix[1, 0] = Math.Sin(radians);
-            rotationMatrix[1, 1] = Math.Cos(radians);
-            rotationMatrix[2, 2] = 1;
-
-            return rotationMatrix;
+            cos = Math.Cos(radians);
+            sin = Math.Sin(radians);
         }
 
         public Point TransformPoint(Point point)
         {
-            double x = point.X * this[0, 0] + point.Y * this[0, 1];
-            double y = point.X * this[1, 0] + point.Y * this[1, 1];
-            return new Point((int)x, (int)y);
+            int newX = (int)(point.X * cos - point.Y * sin);
+            int newY = (int)(point.X * sin + point.Y * cos);
+            return new Point(newX, newY);
         }
     }
+
 
 }
